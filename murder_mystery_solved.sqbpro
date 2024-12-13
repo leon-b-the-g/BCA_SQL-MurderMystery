@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="murder_mystery_solved.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="419"/><column_width id="4" width="0"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="Table_1_test" custom_title="0" dock_id="1" table="4,12:mainTable_1_test"/><dock_state state="000000ff00000000fd00000001000000020000033b0000026efc0100000001fb000000160064006f0063006b00420072006f007700730065003101000000000000033b0000011800ffffff000002580000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Table_1_test" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="64"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL Murder Mystery Completed">--QUERY drivers_license for height, hair, car model, license plate
+--SELECT * FROM drivers_license LIMIT 10
+--SELECT * FROM drivers_license WHERE height BETWEEN 55 AND 57 AND hair_color = 'red' 
+--AND gender = 'female'
+
+--SELECT * FROM drivers_license WHERE car_make = 'Tesla' AND car_model = 'Model S' AND gender = 'female'
+
+--3 red heads that match description
+--id	age		height	eye_color	hair_color	gender	plate_number	car_make	car_model
+--202298	68	66		green		red			female	500123	Tesla	Model S
+--291182	65	66		blue		red			female	08CM64	Tesla	Model S
+--918773	48	65		black		red			female	917UU3	Tesla	Model S
+
+--QUERY INTERVIEWS for the 3 ids
+
+--SELECT * FROM interview WHERE person_id = '202298' 
+--OR person_id = '291182'
+--OR person_id = '918773'  -- PROBABLY HER, WHO HAS RED HAIR AND BLACK EYES???
+--NONE INTERVIEWED
+
+--QUERY PERSON for SSN and CHECK income, wealthies might have the money to pay a killer?
+
+--SELECT * FROM person WHERE license_id = '202298' 
+--OR license_id = '291182'
+--OR license_id = '918773'
+
+--id	name				license_id	address_number	address_street_name	ssn
+--78881	Red Korb			918773		107	Camerata Dr	961388910
+--90700	Regina George		291182		332	Maple Ave	337169072
+--99716	Miranda Priestly	202298		1883	Golden Ave	987756388
+
+--SELECT * FROM income WHERE ssn = '961388910'
+--OR ssn = '337169072'
+--OR ssn = '987756388'
+--ssn	annual_income
+--961388910	278000
+--987756388	310000
+--ONLY THESE TWO HAVE INCOME TO PAY A MURDERER
+--id	name				license_id	address_number	address_street_name	ssn
+--78881	Red Korb			918773		107	Camerata Dr	961388910
+--99716	Miranda Priestly	202298		1883	Golden Ave	987756388
+
+---QUERY interview for suspects
+
+--SELECT * FROM interview WHERE person_id = '78881'
+--OR person_id = '99716'
+--NEITHER SUSPECTS WHERE INTERVIEWED!!
+
+
+--QUERY FOR ALIBIs then pull in final suspect for questioning 
+
+SELECT * FROM facebook_event_checkin WHERE person_id = '78881' OR person_id = '99716'
+THE KILLER IS (Drum roll) 
+--99716	Miranda Priestly	202298		1883	Golden Ave	987756388
+-- SHE ATTENDED THE CONCERT 3 TIMES IN DECEMBER 2017 !!!
+	--person_id	event_id	event_name	date
+	--99716	1143	SQL Symphony Concert	20171206
+	--99716	1143	SQL Symphony Concert	20171212
+	--99716	1143	SQL Symphony Concert	20171229
+	
+--value
+--Congrats, you found the brains behind the murder! Everyone in SQL City hails you as the greatest SQL detective of all time. Time to break out the champagne!
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
